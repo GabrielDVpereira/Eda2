@@ -1,16 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "helpers.h"
 
-void intercala(item *vetor, int l, int meio, int r)
+void intercala(int *vetor, int l, int meio, int r)
 {
 
-  item *aux = malloc(sizeof(item) * (r - l + 1));
+  int *aux = malloc(sizeof(int) * (r - l + 1));
   int a = l, b = meio + 1, c = 0;
 
   while (a <= meio && b <= r)
   {
-    if (lessEq(*(vetor + a), *(vetor + b)))
+    if (*(vetor + a) <= *(vetor + b))
     {
       *(aux + c++) = *(vetor + a++);
     }
@@ -38,7 +37,7 @@ void intercala(item *vetor, int l, int meio, int r)
   free(aux);
 }
 
-void mergeSort(item *vetor, int l, int r)
+void mergeSort(int *vetor, int l, int r)
 {
   if (l >= r)
     return;
@@ -51,21 +50,27 @@ void mergeSort(item *vetor, int l, int r)
 
 int main()
 {
-  int vetor[7] = {
-      0,
-      5,
-      12,
-      41,
-      7,
-      5,
-      41};
 
-  mergeSort(vetor, 0, 6);
+  int n;
+  scanf("%d", &n);
 
-  for (int i = 0; i < 7; i++)
+  int *v = malloc(sizeof(int) * n);
+
+  for (int i = 0; i < n; i++)
   {
-    printf("%d ", vetor[i]);
+    scanf("%d", v + i);
   }
 
-  return 0;
+  mergeSort(v, 0, n - 1);
+
+  int count = 1;
+
+  for (int i = 0; i < n; i++)
+  {
+    if (i != 0 && *(v + i) != *(v + i - 1))
+    {
+      count++;
+    }
+  }
+  printf("%d\n", count);
 }
