@@ -22,9 +22,13 @@ void insertionSort(item *array, item start, item end)
     int j = i;
     item tmp = *(array + j);
 
-    while (less(tmp, *(array j - 1)))
+    while (less(tmp, *(array + j - 1)))
     {
+      *(array + j) = *(array + j - 1);
+      j--;
     }
+
+    *(array + j) = tmp;
   }
 }
 
